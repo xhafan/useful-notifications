@@ -1,0 +1,11 @@
+/*/bin
+/*/obj
+/*.suo
+.vs
+/*/*.user
+/*.user
+repositoryLinks
+obj
+/*/hibernate.cfg.xml
+/*/appsettings.json
+bin
