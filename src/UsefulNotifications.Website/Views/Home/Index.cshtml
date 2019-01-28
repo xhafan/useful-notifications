@@ -1,8 +1,25 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Hlavní stránka";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Vítejte v aplikaci Užitečná Upozornění.</h1>
+    <p>Užitečná Upozornění Vám umožní dostávát upozornění na události, které byste si jinak museli kontrolovat pravidelně manuálně.</p>
+    <p>Příklady:</p>
+    <ul>
+        <li>upozornění na filmy s dobrým hodnocením na <a href="https://www.csfd.cz">ČSFD</a> nebo <a href="https://www.imdb.com">IMDb</a> v místním kině</li>
+        <li>upozornění na divadelní představení se slavnými herci v místním divadle</li>
+        <li>upozornění na novou nabídku prodeje nemovitosti ve zvolené lokalitě</li>
+    </ul>
+    <p>
+        Aplikace Užitečná Upozornění v aktuální verzi podporují pouze jedno upozornění - a to upozornění na filmy s dobrým hodnocením. Další druhy
+        upozornění budou v aplikaci postupně přibývat.
+    </p>
+    <p>Seznam podporovaných Užitečných Upozornění:</p>
+    <ol>
+        <li>
+            Upozornění na filmy s dobrým hodnocením na <a href="https://www.csfd.cz">ČSFD</a> nebo <a href="https://www.imdb.com">IMDb</a> v místním kině.
+            Pro registraci tohoto upozornění klikněte <a asp-controller="FilmsWithGoodRatingNotification" asp-action="Index">zde</a>.
+        </li>
+    </ol>
 </div>
