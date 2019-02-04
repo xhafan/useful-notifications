@@ -8,5 +8,16 @@ namespace UsefulNotifications.Website.Controllers
         {
             return View();
         }
+
+        public IActionResult Subscribe() // todo: test me
+        {
+            return RedirectToAction("SubscriptionSuccessful");
+
+        }
+
+        public IActionResult SubscriptionSuccessful() // todo: test me
+        {
+            return View();
+        }
     }
 }
