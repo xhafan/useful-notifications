@@ -1,52 +1,47 @@
-﻿@{
+﻿@model UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotifications.IndexViewModel
+
+@{
     ViewData["Title"] = "Upozornění na filmy s dobrým hodnocením v místním kině";
 }
 
 <div class="text-center">
     <h2>
-        Upozornění na filmy s dobrým hodnocením v místním kině 
-        (hodnocení filmu podle <a href="https://www.csfd.cz" target="_blank">ČSFD</a> nebo <a href="https://www.imdb.com" target="_blank">IMDb</a>)
+        Upozornění na filmy s dobrým hodnocením v místním kině.
+        Hodnocení filmu podle <a href="https://www.imdb.com">IMDb</a> nebo <a href="https://www.csfd.cz">ČSFD</a>.
     </h2>
 </div>
 <div class="text-left">
-    <form method="post" asp-action="Subscribe">
+    <form method="get" asp-action="SearchForFilms">
 
         Země<br />
-        <select name="country">
-            <option value="czech_republic">Česká republika</option>
-            <option value="slovakia">Slovensko</option>
-            <option value="uk">United Kingdom</option>
-        </select><br />
+        <select asp-for="CountryCode" asp-items="@Model.Countries"></select><br />
         <br />
 
-        Hodnocení z<br />
-        <select name="ratingSource">
-            <option value="CSFD">ČSFD</option>
-            <option value="IMDB">IMDB</option>
-        </select><br />
+        Hodnocení podle<br />
+        <select asp-for="RatingSource" asp-items="@Model.RatingSources"></select><br />
         <br />
 
-        <div id="townSection">
+        <div id="csfdLocationSection" @Html.Raw( Model.IsCountrySupportingCsfdSelected ? "" : "style=\"display: none\"" )>
             Město<br />
-            <input type="text" name="town" /><br />
+            <input asp-for="CsfdLocation" /><br />
             <br />
         </div>
 
-        <div id="postCodeSection">
+        <div id="postCodeSection" @Html.Raw( Model.IsCountrySupportingCsfdSelected ? "style=\"display: none\"" : "" )>
             Poštovní směrovací číslo<br />
-            <input type="text" name="postcode" /><br />
+            <input asp-for="ImdbPostCode" /><br />
             <br />
         </div>
 
-        <div id="csfdRatingSection">
-            Minimální hodnocení pro ČSFD (0 nejhorší, 100 nejlepší)<br />
-            <input type="number" name="csfdMinimalRating" min="0" max="100" step="1" pattern="[0-9]*" value="80" />%<br />
+        <div id="csfdRatingSection" @Html.Raw( Model.IsCsfdRatingSelected ? "" : "style=\"display: none\"" )>
+            Minimální hodnocení podle ČSFD (0 nejhorší, 100 nejlepší)<br />
+            <input type="number" asp-for="CsfdMinimalRating" min="0" max="100" step="1" pattern="[0-9]*" />%<br />
             <br />
         </div>
 
-        <div id="imdbRatingSection">
-            Minimální hodnocení pro IMDB (0 nejhorší, 10 nejlepší)<br />
-            <input type="number" name="imdbMinimalRating" min="0" max="10" step="0.1" pattern="[0-9]+([\.,][0-9]+)?" value="8.0" /><br />
+        <div id="imdbRatingSection" @Html.Raw( Model.IsCsfdRatingSelected ? "style=\"display: none\"" : "" )>
+            Minimální hodnocení podle IMDB (0 nejhorší, 10 nejlepší)<br />
+            <input type="number" asp-for="ImdbMinimalRating" min="0" max="10" step="0.1" pattern="[0-9]+([\.,][0-9]+)?" /><br />
             <br />
         </div>
 
@@ -55,14 +50,14 @@
 </div>
 @section Scripts {
     <script>
-        var ratingSource = $("select[name='ratingSource']");
+        var ratingSource = $("select[name='RatingSource']");
 
         initializeRatingSourceSelectionVisibility();
         initializeCountrySelectionVisibility();
         
         function initializeRatingSourceSelectionVisibility() {
             ratingSource.change(function() {
-                var isCsfdRatingSelected = this.value === "CSFD";
+                var isCsfdRatingSelected = this.value == "CSFD";
                 var csfdRatingSection = $("#csfdRatingSection");
                 var imdbRatingSection = $("#imdbRatingSection");
 
@@ -76,19 +71,19 @@
                     csfdRatingSection.hide();
                     imdbRatingSection.show();
                 }
-            }).change();
+            });
         }
 
         function initializeCountrySelectionVisibility() {
-            $("select[name='country']").change(function() {
-                var isCsfdCompatibleCountrySelected = this.value === "czech_republic" || this.value === "slovakia";
-                var townSection = $("#townSection");
+            $("select[name='CountryCode']").change(function() {
+                var isCsfdCompatibleCountrySelected = this.value == "CZ" || this.value == "SK";
+                var csfdLocationSection = $("#csfdLocationSection");
                 var postCodeSection = $("#postCodeSection");
 
                 var ratingSourceCsfdOption = ratingSource.find("option[value='CSFD']");
 
                 if (isCsfdCompatibleCountrySelected) {
-                    townSection.show();
+                    csfdLocationSection.show();
                     postCodeSection.hide();
 
                     ratingSourceCsfdOption.show();
@@ -97,7 +92,7 @@
                 }
                 else
                 {
-                    townSection.hide();
+                    csfdLocationSection.hide();
                     postCodeSection.show();
 
                     ratingSourceCsfdOption.hide();
@@ -105,7 +100,7 @@
                     ratingSource.change();
                 }
 
-            }).change();
+            });
         }
     </script>
 }

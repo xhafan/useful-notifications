@@ -1,0 +1,22 @@
+﻿@model UsefulNotifications.Website.Controllers.SearchFilmsArgs
+
+@{
+    ViewData["Title"] = "Nalezené filmy s dobrým hodnocením";
+}
+
+<div class="text-center">
+    <h2>Nalezené filmy s dobrým hodnocením</h2>
+</div>
+<div class="text-left">
+    <a asp-action="Index" asp-all-route-data="@Model.ToRouteData()">Upravit hledání</a><br />
+    <br />
+    <form method="post" asp-action="AddNotification">
+        <ul>
+            <li><a href="https://www.csfd.cz/film/657646-zeny-v-behu/prehled/">Ženy v běhu</a>, hodnocení 82% (<a href="https://www.csfd.cz/film/657646-zeny-v-behu/prehled/">ČSFD</a>), 7.8 (<a href="https://www.imdb.com/title/tt8938852/">IMDB</a>), Zlín Golden Apple Cinema</li>
+        </ul>
+        <p>
+            Chcete dostávat emailové upozornění na filmy s dobrým hodnocením emailem?
+        </p>
+        <input type="submit" value="Přidej upozornění" />
+    </form>
+</div>
