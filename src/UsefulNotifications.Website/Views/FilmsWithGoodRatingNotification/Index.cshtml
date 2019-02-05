@@ -86,7 +86,7 @@
                     csfdLocationSection.show();
                     postCodeSection.hide();
 
-                    ratingSourceCsfdOption.show();
+                    ratingSourceCsfdOption.prop("disabled", false);
                     ratingSource.val("CSFD");
                     ratingSource.change();
                 }
@@ -95,7 +95,7 @@
                     csfdLocationSection.hide();
                     postCodeSection.show();
 
-                    ratingSourceCsfdOption.hide();
+                    ratingSourceCsfdOption.prop("disabled", true);
                     ratingSource.val("IMDB");
                     ratingSource.change();
                 }
