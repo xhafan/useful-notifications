@@ -1,4 +1,4 @@
-﻿@model UsefulNotifications.Website.Controllers.SearchFilmsArgs
+﻿@model UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotifications.SearchForFilmsViewModel
 
 @{
     ViewData["Title"] = "Nalezené filmy s dobrým hodnocením";
@@ -8,11 +8,25 @@
     <h2>Nalezené filmy s dobrým hodnocením</h2>
 </div>
 <div class="text-left">
-    <a asp-action="Index" asp-all-route-data="@Model.ToRouteData()">Upravit hledání</a><br />
+    <a asp-action="Index" asp-all-route-data="@Model.SearchFilmsArgs.ToRouteData()">Upravit hledání</a><br />
     <br />
     <form method="post" asp-action="AddNotification">
         <ul>
-            <li><a href="https://www.csfd.cz/film/657646-zeny-v-behu/prehled/">Ženy v běhu</a>, hodnocení 82% (<a href="https://www.csfd.cz/film/657646-zeny-v-behu/prehled/">ČSFD</a>), 7.8 (<a href="https://www.imdb.com/title/tt8938852/">IMDB</a>), Zlín Golden Apple Cinema</li>
+            @foreach (var film in Model.Films)
+            {
+                <li>
+                    <a href="@film.FilmMainUrl">@film.FilmName</a>, hodnocení
+                    @foreach (var rating in film.Ratings)
+                    {
+                        @rating.Rating <text> (</text><a href="@rating.FilmUrl">@rating.RatingSource</a><text>), </text>
+                    }
+                    @for (var i = 0; i < film.Cinemas.Count(); i++)
+                    {
+                        if (i != 0) { <text>, </text> }
+                        @film.Cinemas.ElementAt(i)
+                    }
+                </li>
+            }
         </ul>
         <p>
             Chcete dostávat emailové upozornění na filmy s dobrým hodnocením emailem?

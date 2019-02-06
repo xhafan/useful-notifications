@@ -15,7 +15,7 @@ namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotificatio
         public IEnumerable<SelectListItem> Countries { get; set; }
         public IEnumerable<SelectListItem> RatingSources { get; set; }
 
-        public bool IsCountrySupportingCsfdSelected { get; set; }    
+        public bool IsSelectedCountrySupportingCsfd { get; set; }    
         public bool IsCsfdRatingSelected { get; set; }    
     }
 }

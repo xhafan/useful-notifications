@@ -21,13 +21,13 @@
         <select asp-for="RatingSource" asp-items="@Model.RatingSources"></select><br />
         <br />
 
-        <div id="csfdLocationSection" @Html.Raw( Model.IsCountrySupportingCsfdSelected ? "" : "style=\"display: none\"" )>
+        <div id="csfdLocationSection" @Html.Raw( Model.IsSelectedCountrySupportingCsfd ? "" : "style=\"display: none\"" )>
             Město<br />
             <input asp-for="CsfdLocation" /><br />
             <br />
         </div>
 
-        <div id="postCodeSection" @Html.Raw( Model.IsCountrySupportingCsfdSelected ? "style=\"display: none\"" : "" )>
+        <div id="postCodeSection" @Html.Raw( Model.IsSelectedCountrySupportingCsfd ? "style=\"display: none\"" : "" )>
             Poštovní směrovací číslo<br />
             <input asp-for="ImdbPostCode" /><br />
             <br />
@@ -40,7 +40,7 @@
         </div>
 
         <div id="imdbRatingSection" @Html.Raw( Model.IsCsfdRatingSelected ? "style=\"display: none\"" : "" )>
-            Minimální hodnocení podle IMDB (0 nejhorší, 10 nejlepší)<br />
+            Minimální hodnocení podle IMDb (0 nejhorší, 10 nejlepší)<br />
             <input type="number" asp-for="ImdbMinimalRating" min="0" max="10" step="0.1" pattern="[0-9]+([\.,][0-9]+)?" /><br />
             <br />
         </div>

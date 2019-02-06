@@ -25,10 +25,10 @@ namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotificatio
                 RatingSources = new[]
                 {
                     new SelectListItem {Value = "CSFD", Text = "ČSFD"},
-                    new SelectListItem {Value = "IMDB", Text = "IMDB"}
+                    new SelectListItem {Value = "IMDB", Text = "IMDb"}
                 }
             };
-            viewModel.IsCountrySupportingCsfdSelected = viewModel.CountryCode == "CZ" || viewModel.CountryCode == "SK";
+            viewModel.IsSelectedCountrySupportingCsfd = viewModel.CountryCode == "CZ" || viewModel.CountryCode == "SK";
             viewModel.IsCsfdRatingSelected = viewModel.RatingSource == "CSFD";
 
             return View(viewModel);
@@ -36,7 +36,35 @@ namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotificatio
 
         public IActionResult SearchForFilms(SearchFilmsArgs searchFilmsArgs) // todo: test me
         {
-            return View(searchFilmsArgs);
+            var viewModel = new SearchForFilmsViewModel
+            {
+                SearchFilmsArgs = searchFilmsArgs,
+                Films = new[]
+                {
+                    new FilmViewModel
+                    {
+                        FilmName = "Ženy v běhu",
+                        FilmMainUrl = "https://www.csfd.cz/film/657646-zeny-v-behu/prehled/",
+                        Ratings = new[]
+                        {
+                            new RatingViewModel
+                            {
+                                RatingSource = "ČSFD",
+                                FilmUrl = "https://www.csfd.cz/film/657646-zeny-v-behu/prehled/",
+                                Rating = "82%",
+                            },
+                            new RatingViewModel
+                            {
+                                RatingSource = "IMDB",
+                                FilmUrl = "https://www.imdb.com/title/tt8938852/",
+                                Rating = "7.8",
+                            }
+                        },
+                        Cinemas = new[] {"Zlín Golden Apple Cinema"}
+                    }
+                }
+            };
+            return View(viewModel);
         }
 
         [HttpPost]
