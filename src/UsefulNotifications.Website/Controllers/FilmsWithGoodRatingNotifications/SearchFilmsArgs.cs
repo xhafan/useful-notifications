@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 
-namespace UsefulNotifications.Website.Controllers
+namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotifications
 {
     public class SearchFilmsArgs
     {

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CoreDdd" Version="3.2.0" />
+    <PackageReference Include="CoreDdd.Nhibernate" Version="3.2.0" />
+    <PackageReference Include="NHibernateProfiler.Appender" Version="5.0.5032" />
+  </ItemGroup>
+
+</Project>

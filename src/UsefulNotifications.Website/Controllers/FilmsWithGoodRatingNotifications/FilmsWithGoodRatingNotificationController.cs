@@ -34,6 +34,7 @@ namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotificatio
             return View(viewModel);
         }
 
+        [HttpPost]
         public IActionResult SearchForFilms(SearchFilmsArgs searchFilmsArgs) // todo: test me
         {
             var viewModel = new SearchForFilmsViewModel
