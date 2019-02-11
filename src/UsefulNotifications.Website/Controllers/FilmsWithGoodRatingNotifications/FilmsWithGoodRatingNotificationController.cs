@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using UsefulNotifications.Dtos.FilmsWithGoodRatingNotifications;
 
 namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotifications
 {
@@ -42,26 +43,26 @@ namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotificatio
                 SearchFilmsArgs = searchFilmsArgs,
                 Films = new[]
                 {
-                    new FilmViewModel
+                    new LocationFilmDto
                     {
                         FilmName = "Ženy v běhu",
                         FilmMainUrl = "https://www.csfd.cz/film/657646-zeny-v-behu/prehled/",
                         Ratings = new[]
                         {
-                            new RatingViewModel
+                            new FilmRatingDto
                             {
                                 RatingSource = "ČSFD",
                                 FilmUrl = "https://www.csfd.cz/film/657646-zeny-v-behu/prehled/",
                                 Rating = "82%",
                             },
-                            new RatingViewModel
+                            new FilmRatingDto
                             {
                                 RatingSource = "IMDB",
                                 FilmUrl = "https://www.imdb.com/title/tt8938852/",
                                 Rating = "7.8",
                             }
                         },
-                        Cinemas = new[] {"Zlín Golden Apple Cinema"}
+                        Cinemas = new[] {new LocationFilmCinemaDto {CinemaName = "Zlín Golden Apple Cinema"}}
                     }
                 }
             };

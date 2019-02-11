@@ -2,8 +2,9 @@
 using CoreDdd.Nhibernate.Configurations;
 using HibernatingRhinos.Profiler.Appender.NHibernate;
 using UsefulNotifications.Domain.FilmsWithGoodRatingNotifications;
+using UsefulNotifications.Dtos.FilmsWithGoodRatingNotifications;
 
-namespace UsefulNotifications.Domain
+namespace UsefulNotifications.Infrastructure
 {
     public class NhibernateConfigurator : BaseNhibernateConfigurator
     {
@@ -22,7 +23,8 @@ namespace UsefulNotifications.Domain
         {
             return new[]
             {
-                typeof(Location).Assembly
+                typeof(Location).Assembly,
+                typeof(LocationFilmDto).Assembly,
             };
         }
 

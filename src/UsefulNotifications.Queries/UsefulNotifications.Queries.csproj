@@ -6,8 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="CoreDdd" Version="3.2.0" />
-    <PackageReference Include="CoreDdd.Nhibernate" Version="3.2.0" />
-    <PackageReference Include="NHibernateProfiler.Appender" Version="5.0.5032" />
   </ItemGroup>
 
   <ItemGroup>

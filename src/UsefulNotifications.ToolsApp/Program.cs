@@ -1,8 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Text.RegularExpressions;
 using CoreDdd.Nhibernate.DatabaseSchemaGenerators;
-using UsefulNotifications.Domain;
+using UsefulNotifications.Infrastructure;
 
 namespace UsefulNotifications.ToolsApp
 {

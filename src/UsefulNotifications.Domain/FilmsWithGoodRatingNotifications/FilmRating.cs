@@ -1,4 +1,5 @@
 ﻿using CoreDdd.Domain;
+using UsefulNotifications.Shared.FilmsWithGoodRatingNotifications;
 
 namespace UsefulNotifications.Domain.FilmsWithGoodRatingNotifications
 {

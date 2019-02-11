@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UsefulNotifications.Domain\UsefulNotifications.Domain.csproj" />
+    <ProjectReference Include="..\UsefulNotifications.Infrastructure\UsefulNotifications.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

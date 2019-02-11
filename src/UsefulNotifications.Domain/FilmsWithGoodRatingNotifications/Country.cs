@@ -6,13 +6,13 @@ namespace UsefulNotifications.Domain.FilmsWithGoodRatingNotifications
     {
         protected Country() {}
 
-        public Country(string code, string name)
+        public Country(string name, string code)
         {
-            Code = code;
             Name = name;
+            Code = code;
         }
 
-        public virtual string Code { get; protected set; }
         public virtual string Name { get; protected set; }
+        public virtual string Code { get; protected set; }
     }
 }

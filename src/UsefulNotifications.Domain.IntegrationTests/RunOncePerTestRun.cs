@@ -4,6 +4,7 @@ using System.Reflection;
 using DatabaseBuilder;
 using Npgsql;
 using NUnit.Framework;
+using UsefulNotifications.Infrastructure;
 
 namespace UsefulNotifications.Domain.IntegrationTests
 {

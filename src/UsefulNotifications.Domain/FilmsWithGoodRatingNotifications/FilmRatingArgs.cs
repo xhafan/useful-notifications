@@ -1,4 +1,6 @@
-﻿namespace UsefulNotifications.Domain.FilmsWithGoodRatingNotifications
+﻿using UsefulNotifications.Shared.FilmsWithGoodRatingNotifications;
+
+namespace UsefulNotifications.Domain.FilmsWithGoodRatingNotifications
 {
     public class FilmRatingArgs
     {

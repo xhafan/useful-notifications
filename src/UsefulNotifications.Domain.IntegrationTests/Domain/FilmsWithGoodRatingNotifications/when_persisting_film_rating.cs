@@ -1,39 +1,35 @@
 ﻿using System.Linq;
 using CoreDdd.Nhibernate.TestHelpers;
-using CoreDdd.Nhibernate.UnitOfWorks;
 using NUnit.Framework;
 using Shouldly;
 using UsefulNotifications.Domain.FilmsWithGoodRatingNotifications;
+using UsefulNotifications.Shared.FilmsWithGoodRatingNotifications;
+using UsefulNotifications.TestsShared.Builders.FilmsWithGoodRatingNotifications;
 
-namespace UsefulNotifications.Domain.IntegrationTests.FilmsWithGoodRatingNotifications
+namespace UsefulNotifications.Domain.IntegrationTests.Domain.FilmsWithGoodRatingNotifications
 {
     [TestFixture]
-    public class when_persisting_film_rating
+    public class when_persisting_film_rating : BaseIntegrationTest
     {
-        private NhibernateUnitOfWork _unitOfWork;
         private Film _newFilm;
         private FilmRating _persistedFilmRating;
 
         [SetUp]
         public void Context()
         {
-            _unitOfWork = new NhibernateUnitOfWork(new NhibernateConfigurator());
-            _unitOfWork.BeginTransaction();
-
-            _newFilm = new Film("film name", "film url", new[]
-            {
-                new FilmRatingArgs
+            _newFilm = new FilmBuilder()
+                .WithFilmRatings(new FilmRatingArgs
                 {
                     Source = RatingSource.Imdb,
                     Rating = "8.2",
                     Url = "film rating url"
-                }
-            });
+                })
+                .Build();
 
-            _unitOfWork.Save(_newFilm);
-            _unitOfWork.Clear();
+            UnitOfWork.Save(_newFilm);
+            UnitOfWork.Clear();
 
-            _persistedFilmRating = _unitOfWork.Get<Film>(_newFilm.Id).FilmRatings.SingleOrDefault();
+            _persistedFilmRating = UnitOfWork.Get<Film>(_newFilm.Id).FilmRatings.SingleOrDefault();
         }
 
         [Test]
@@ -44,12 +40,6 @@ namespace UsefulNotifications.Domain.IntegrationTests.FilmsWithGoodRatingNotific
             _persistedFilmRating.Source.ShouldBe(RatingSource.Imdb);
             _persistedFilmRating.Rating.ShouldBe("8.2");
             _persistedFilmRating.Url.ShouldBe("film rating url");
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _unitOfWork.Rollback();
         }
     }
 }
