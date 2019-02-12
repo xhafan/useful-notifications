@@ -6,7 +6,7 @@ using UsefulNotifications.Domain.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.Shared.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.TestsShared.Builders.FilmsWithGoodRatingNotifications;
 
-namespace UsefulNotifications.Domain.IntegrationTests.Domain.FilmsWithGoodRatingNotifications
+namespace UsefulNotifications.Domain.IntegrationTests.FilmsWithGoodRatingNotifications.Domain
 {
     [TestFixture]
     public class when_persisting_film_rating : BaseIntegrationTest
@@ -21,7 +21,7 @@ namespace UsefulNotifications.Domain.IntegrationTests.Domain.FilmsWithGoodRating
                 .WithFilmRatings(new FilmRatingArgs
                 {
                     Source = RatingSource.Imdb,
-                    Rating = "8.2",
+                    Rating = 8.2m,
                     Url = "film rating url"
                 })
                 .Build();
@@ -38,7 +38,7 @@ namespace UsefulNotifications.Domain.IntegrationTests.Domain.FilmsWithGoodRating
             _persistedFilmRating.ShouldNotBeNull();
             _persistedFilmRating.ShouldBe(_newFilm.FilmRatings.Single());
             _persistedFilmRating.Source.ShouldBe(RatingSource.Imdb);
-            _persistedFilmRating.Rating.ShouldBe("8.2");
+            _persistedFilmRating.Rating.ShouldBe(8.2m);
             _persistedFilmRating.Url.ShouldBe("film rating url");
         }
     }

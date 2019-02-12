@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using UsefulNotifications.Dtos.FilmsWithGoodRatingNotifications;
+using UsefulNotifications.Shared.FilmsWithGoodRatingNotifications;
 
 namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotifications
 {
@@ -51,15 +52,15 @@ namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotificatio
                         {
                             new FilmRatingDto
                             {
-                                RatingSource = "ČSFD",
+                                RatingSource = RatingSource.Csfd,
                                 FilmUrl = "https://www.csfd.cz/film/657646-zeny-v-behu/prehled/",
-                                Rating = "82%",
+                                Rating = 82m,
                             },
                             new FilmRatingDto
                             {
-                                RatingSource = "IMDB",
+                                RatingSource = RatingSource.Imdb,
                                 FilmUrl = "https://www.imdb.com/title/tt8938852/",
-                                Rating = "7.8",
+                                Rating = 7.8m,
                             }
                         },
                         Cinemas = new[] {new LocationFilmCinemaDto {CinemaName = "Zlín Golden Apple Cinema"}}

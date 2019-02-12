@@ -6,7 +6,7 @@ using UsefulNotifications.Domain.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.Dtos.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.TestsShared.Builders.FilmsWithGoodRatingNotifications;
 
-namespace UsefulNotifications.Domain.IntegrationTests.Dtos.FilmsWithGoodRatingNotifications
+namespace UsefulNotifications.Domain.IntegrationTests.FilmsWithGoodRatingNotifications.Dtos
 {
     [TestFixture]
     public class when_fetching_film_rating_dto : BaseIntegrationTest
@@ -41,8 +41,9 @@ namespace UsefulNotifications.Domain.IntegrationTests.Dtos.FilmsWithGoodRatingNo
 
             UnitOfWork.Clear();
 
+            var locationFilmId = location.Films.Single().Id;
             _filmRatingDto = UnitOfWork.Session.QueryOver<LocationFilmDto>()
-                .Where(x => x.LocationId == location.Id)
+                .Where(x => x.Id == locationFilmId)
                 .List().Single()
                 .Ratings.SingleOrDefault();
         }

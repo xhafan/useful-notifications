@@ -9,7 +9,7 @@ namespace UsefulNotifications.TestsShared.Builders.FilmsWithGoodRatingNotificati
         public const string FilmName = "film name";
         public const string FilmUrl = "film url";
         public const RatingSource FilmRatingSource = RatingSource.Imdb;
-        public const string FilmRating = "8.2";
+        public const decimal FilmRating = 8.2m;
 
         private string _filmName = FilmName;
         private string _filmUrl = FilmUrl;

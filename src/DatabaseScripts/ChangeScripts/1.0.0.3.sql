@@ -23,8 +23,8 @@
 
     create table "Country" (
         "Id" int4 not null,
-       "Code" text not null,
        "Name" text not null,
+       "Code" text not null,
        primary key ("Id")
     );
 
@@ -38,7 +38,7 @@
     create table "FilmRating" (
         "Id" int4 not null,
        "Source" varchar(255) not null,
-       "Rating" text not null,
+       "Rating" decimal(19,5) not null,
        "Url" text not null,
        "FilmId" int4,
        primary key ("Id")
@@ -67,7 +67,7 @@
     );
 
     alter table "FilmRating" 
-        add constraint FK57F8D4E2E7AB17B6 
+        add constraint FK_7B19BD1A 
         foreign key ("FilmId") 
         references "Film";
 
@@ -82,7 +82,7 @@
         references "Film";
 
     alter table "LocationFilm" 
-        add constraint FK382B16E7965A6B6 
+        add constraint FK_7D72271C 
         foreign key ("LocationId") 
         references "Location";
 
@@ -92,7 +92,7 @@
         references "Cinema";
 
     alter table "LocationFilmCinema" 
-        add constraint FK83220FE147E83E65 
+        add constraint FK_65FC009 
         foreign key ("LocationFilmId") 
         references "LocationFilm";
 

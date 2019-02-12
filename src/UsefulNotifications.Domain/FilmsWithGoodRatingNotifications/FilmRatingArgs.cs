@@ -6,6 +6,6 @@ namespace UsefulNotifications.Domain.FilmsWithGoodRatingNotifications
     {
         public RatingSource Source { get; set; }
         public string Url { get; set; }
-        public string Rating { get; set; }
+        public decimal Rating { get; set; }
     }
 }

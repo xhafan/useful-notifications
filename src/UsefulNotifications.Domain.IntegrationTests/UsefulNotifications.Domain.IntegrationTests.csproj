@@ -29,6 +29,7 @@
     <ProjectReference Include="..\UsefulNotifications.Domain\UsefulNotifications.Domain.csproj" />
     <ProjectReference Include="..\UsefulNotifications.Dtos\UsefulNotifications.Dtos.csproj" />
     <ProjectReference Include="..\UsefulNotifications.Infrastructure\UsefulNotifications.Infrastructure.csproj" />
+    <ProjectReference Include="..\UsefulNotifications.Queries\UsefulNotifications.Queries.csproj" />
     <ProjectReference Include="..\UsefulNotifications.TestsShared\UsefulNotifications.TestsShared.csproj" />
   </ItemGroup>
 

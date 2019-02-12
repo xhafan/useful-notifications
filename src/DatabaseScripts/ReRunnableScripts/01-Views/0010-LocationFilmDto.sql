@@ -5,7 +5,10 @@ as
 select 
     lf."Id"
     , lf."LocationId"
-	, f."Name"     as "FilmName"
-	, f."MainUrl"  as "FilmMainUrl"
+    , l."CountryId"
+    , l."NameOrPostCode"    as "LocationNameOrPostCode"
+	, f."Name"              as "FilmName"
+	, f."MainUrl"           as "FilmMainUrl"
 from "LocationFilm" lf
+join "Location" l on l."Id" = lf."LocationId"
 join "Film" f on f."Id" = lf."FilmId"

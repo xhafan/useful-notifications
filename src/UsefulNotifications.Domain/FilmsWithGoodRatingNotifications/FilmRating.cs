@@ -15,7 +15,7 @@ namespace UsefulNotifications.Domain.FilmsWithGoodRatingNotifications
         }
 
         public virtual RatingSource Source { get; protected set; }
-        public virtual string Rating { get; protected set; }
+        public virtual decimal Rating { get; protected set; }
         public virtual string Url { get; protected set; }
     }
 }

@@ -4,31 +4,49 @@ using NUnit.Framework;
 using Shouldly;
 using UsefulNotifications.Domain.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.Dtos.FilmsWithGoodRatingNotifications;
+using UsefulNotifications.Shared.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.TestsShared.Builders.FilmsWithGoodRatingNotifications;
 
-namespace UsefulNotifications.Domain.IntegrationTests.Dtos.FilmsWithGoodRatingNotifications
+namespace UsefulNotifications.Domain.IntegrationTests.FilmsWithGoodRatingNotifications.Dtos
 {
     [TestFixture]
-    public class when_fetching_location_film_dto : BaseIntegrationTest
+    public class when_querying_films : BaseIntegrationTest
     {
         private LocationFilmDto _locationFilmDto;
         private Film _film;
         private Location _location;
+        private Country _country;
 
         [SetUp]
         public void Context()
         {
-            var country = new CountryBuilder().Build();
-            UnitOfWork.Save(country);
+            _country = new CountryBuilder().Build();
+            UnitOfWork.Save(_country);
 
             var cinema = new CinemaBuilder().Build();
             UnitOfWork.Save(cinema);
 
-            _film = new FilmBuilder().Build();
+            _film = new FilmBuilder()
+                .WithFilmRatings(
+                    new FilmRatingArgs
+                    {
+                        Source = RatingSource.Imdb,
+                        Rating = 8.2m,
+                        Url = "imdb url"
+                    },
+                    new FilmRatingArgs
+                    {
+                        Source = RatingSource.Csfd,
+                        Rating = 82m,
+                        Url = "csfd url"
+                    }
+                )
+                .Build();
             UnitOfWork.Save(_film);
 
             _location = new LocationBuilder()
-                .WithCountry(country)
+                .WithCountry(_country)
+                .WithNameOrPostCode("location name or post code")
                 .WithLocationFilms(new LocationFilmArgs
                 {
                     Film = _film,
@@ -42,8 +60,9 @@ namespace UsefulNotifications.Domain.IntegrationTests.Dtos.FilmsWithGoodRatingNo
 
             UnitOfWork.Clear();
 
+            var locationFilmId = _location.Films.Single().Id;
             _locationFilmDto = UnitOfWork.Session.QueryOver<LocationFilmDto>()
-                .Where(x => x.LocationId == _location.Id)
+                .Where(x => x.Id == locationFilmId)
                 .List().SingleOrDefault();
         }
 
@@ -51,7 +70,8 @@ namespace UsefulNotifications.Domain.IntegrationTests.Dtos.FilmsWithGoodRatingNo
         public void location_film_dto_contains_correct_data()
         {
             _locationFilmDto.ShouldNotBeNull();
-            _locationFilmDto.Id.ShouldBe(_location.Films.Single().Id);
+            _locationFilmDto.CountryId.ShouldBe(_country.Id);
+            _locationFilmDto.LocationNameOrPostCode.ShouldBe("location name or post code");
             _locationFilmDto.FilmName.ShouldBe(_film.Name);
             _locationFilmDto.FilmMainUrl.ShouldBe(_film.MainUrl);
         }

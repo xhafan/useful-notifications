@@ -7,6 +7,6 @@ namespace UsefulNotifications.Dtos.FilmsWithGoodRatingNotifications
         public int Id { get; set; }
         public RatingSource RatingSource { get; set; }
         public string FilmUrl { get; set; }
-        public string Rating { get; set; }
+        public decimal Rating { get; set; }
     }
 }
