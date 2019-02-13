@@ -6,15 +6,13 @@ using UsefulNotifications.Domain.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.Dtos.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.TestsShared.Builders.FilmsWithGoodRatingNotifications;
 
-namespace UsefulNotifications.Domain.IntegrationTests.FilmsWithGoodRatingNotifications.Dtos
+namespace UsefulNotifications.IntegrationTests.FilmsWithGoodRatingNotifications.Dtos
 {
     [TestFixture]
-    public class when_fetching_location_film_cinema_dto : BaseIntegrationTest
+    public class when_fetching_film_rating_dto : BaseIntegrationTest
     {
-        private LocationFilmCinemaDto _locationFilmCinemaDto;
+        private FilmRatingDto _filmRatingDto;
         private Film _film;
-        private Location _location;
-        private Cinema _cinema;
 
         [SetUp]
         public void Context()
@@ -22,40 +20,42 @@ namespace UsefulNotifications.Domain.IntegrationTests.FilmsWithGoodRatingNotific
             var country = new CountryBuilder().Build();
             UnitOfWork.Save(country);
 
-            _cinema = new CinemaBuilder().Build();
-            UnitOfWork.Save(_cinema);
+            var cinema = new CinemaBuilder().Build();
+            UnitOfWork.Save(cinema);
 
             _film = new FilmBuilder().Build();
             UnitOfWork.Save(_film);
 
-            _location = new LocationBuilder()
+            var location = new LocationBuilder()
                 .WithCountry(country)
                 .WithLocationFilms(new LocationFilmArgs
                 {
                     Film = _film,
                     Cinemas = new[]
                     {
-                        new LocationFilmCinemaArgs { Cinema = _cinema }
+                        new LocationFilmCinemaArgs { Cinema = cinema }
                     }
                 })
                 .Build();
-            UnitOfWork.Save(_location);
+            UnitOfWork.Save(location);
 
             UnitOfWork.Clear();
 
-            var locationFilmId = _location.Films.Single().Id;
-            _locationFilmCinemaDto = UnitOfWork.Session.QueryOver<LocationFilmDto>()
+            var locationFilmId = location.Films.Single().Id;
+            _filmRatingDto = UnitOfWork.Session.QueryOver<LocationFilmDto>()
                 .Where(x => x.Id == locationFilmId)
                 .List().Single()
-                .Cinemas.SingleOrDefault();
+                .Ratings.SingleOrDefault();
         }
 
         [Test]
-        public void location_film_cinema_dto_contains_correct_data()
+        public void film_rating_dto_contains_correct_data()
         {
-            _locationFilmCinemaDto.ShouldNotBeNull();
-            _locationFilmCinemaDto.Id.ShouldBe(_location.Films.Single().Cinemas.Single().Id);
-            _locationFilmCinemaDto.CinemaName.ShouldBe(_cinema.Name);
+            _filmRatingDto.ShouldNotBeNull();
+            _filmRatingDto.Id.ShouldBe(_film.FilmRatings.Single().Id);
+            _filmRatingDto.RatingSource.ShouldBe(FilmBuilder.FilmRatingSource);
+            _filmRatingDto.FilmUrl.ShouldBe(FilmBuilder.FilmUrl);
+            _filmRatingDto.Rating.ShouldBe(FilmBuilder.FilmRating);
         }
     }
 }

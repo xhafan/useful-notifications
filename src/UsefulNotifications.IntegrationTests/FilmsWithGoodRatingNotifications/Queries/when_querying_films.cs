@@ -9,7 +9,7 @@ using UsefulNotifications.Queries.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.Shared.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.TestsShared.Builders.FilmsWithGoodRatingNotifications;
 
-namespace UsefulNotifications.Domain.IntegrationTests.FilmsWithGoodRatingNotifications.Queries
+namespace UsefulNotifications.IntegrationTests.FilmsWithGoodRatingNotifications.Queries
 {
     [TestFixture]
     public class when_querying_films : BaseIntegrationTest

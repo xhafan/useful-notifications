@@ -6,7 +6,7 @@ using Npgsql;
 using NUnit.Framework;
 using UsefulNotifications.Infrastructure;
 
-namespace UsefulNotifications.Domain.IntegrationTests
+namespace UsefulNotifications.IntegrationTests
 {
     [SetUpFixture]
     public class RunOncePerTestRun

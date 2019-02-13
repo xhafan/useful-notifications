@@ -5,7 +5,7 @@ using Shouldly;
 using UsefulNotifications.Domain.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.TestsShared.Builders.FilmsWithGoodRatingNotifications;
 
-namespace UsefulNotifications.Domain.IntegrationTests.FilmsWithGoodRatingNotifications.Domain
+namespace UsefulNotifications.IntegrationTests.FilmsWithGoodRatingNotifications.Domain
 {
     [TestFixture]
     public class when_persisting_location_film : BaseIntegrationTest

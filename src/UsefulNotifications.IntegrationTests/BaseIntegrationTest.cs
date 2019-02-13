@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using UsefulNotifications.Infrastructure;
 
-namespace UsefulNotifications.Domain.IntegrationTests
+namespace UsefulNotifications.IntegrationTests
 {
     public abstract class BaseIntegrationTest
     {

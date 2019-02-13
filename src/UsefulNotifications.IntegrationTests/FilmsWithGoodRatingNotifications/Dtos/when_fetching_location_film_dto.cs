@@ -7,7 +7,7 @@ using UsefulNotifications.Dtos.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.Shared.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.TestsShared.Builders.FilmsWithGoodRatingNotifications;
 
-namespace UsefulNotifications.Domain.IntegrationTests.FilmsWithGoodRatingNotifications.Dtos
+namespace UsefulNotifications.IntegrationTests.FilmsWithGoodRatingNotifications.Dtos
 {
     [TestFixture]
     public class when_querying_films : BaseIntegrationTest
