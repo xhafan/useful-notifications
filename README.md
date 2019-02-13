@@ -1,4 +1,4 @@
-Useful notifications about events people can subscribe to - ASP.NET Core MVC web application. 
+Useful notifications about events users subscribe to - ASP.NET Core MVC web application. 
 
 One of the first notifications will be a notification about films with a good [IMDB](https://www.imdb.com/) or [ČSFD](https://www.csfd.cz/) rating in a local cinema.
 
