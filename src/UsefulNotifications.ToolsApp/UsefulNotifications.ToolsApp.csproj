@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="..\UsefulNotifications.IntegrationTests\hibernate.cfg.xml" Link="hibernate.cfg.xml">
+    <Content Include="..\UsefulNotifications.Domain.IntegrationTests\hibernate.cfg.xml" Link="hibernate.cfg.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -6,7 +6,7 @@ namespace UsefulNotifications.Dtos.FilmsWithGoodRatingNotifications
     {
         public int Id { get; set; }
 
-        public int CountryId { get; set; }
+        public string CountryCode { get; set; }
         public string LocationNameOrPostCode { get; set; }
 
         public string FilmName { get; set; }

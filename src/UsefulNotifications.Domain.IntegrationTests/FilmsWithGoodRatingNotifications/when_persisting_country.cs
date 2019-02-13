@@ -2,9 +2,10 @@
 using NUnit.Framework;
 using Shouldly;
 using UsefulNotifications.Domain.FilmsWithGoodRatingNotifications;
+using UsefulNotifications.IntegrationTestsShared;
 using UsefulNotifications.TestsShared.Builders.FilmsWithGoodRatingNotifications;
 
-namespace UsefulNotifications.IntegrationTests.FilmsWithGoodRatingNotifications.Domain
+namespace UsefulNotifications.Domain.IntegrationTests.FilmsWithGoodRatingNotifications
 {
     [TestFixture]
     public class when_persisting_country : BaseIntegrationTest

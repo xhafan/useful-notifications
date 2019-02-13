@@ -6,10 +6,9 @@ using Npgsql;
 using NUnit.Framework;
 using UsefulNotifications.Infrastructure;
 
-namespace UsefulNotifications.IntegrationTests
+namespace UsefulNotifications.IntegrationTestsShared
 {
-    [SetUpFixture]
-    public class RunOncePerTestRun
+    public abstract class BaseRunOncePerTestRun
     {
         [OneTimeSetUp]
         public void SetUp()
@@ -38,5 +37,6 @@ namespace UsefulNotifications.IntegrationTests
             var path = Uri.UnescapeDataString(uri.Path);
             return Path.GetDirectoryName(path);
         }
+
     }
 }

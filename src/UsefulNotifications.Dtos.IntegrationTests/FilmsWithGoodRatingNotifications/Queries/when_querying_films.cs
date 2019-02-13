@@ -5,11 +5,12 @@ using NUnit.Framework;
 using Shouldly;
 using UsefulNotifications.Domain.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.Dtos.FilmsWithGoodRatingNotifications;
+using UsefulNotifications.IntegrationTestsShared;
 using UsefulNotifications.Queries.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.Shared.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.TestsShared.Builders.FilmsWithGoodRatingNotifications;
 
-namespace UsefulNotifications.IntegrationTests.FilmsWithGoodRatingNotifications.Queries
+namespace UsefulNotifications.Dtos.IntegrationTests.FilmsWithGoodRatingNotifications.Queries
 {
     [TestFixture]
     public class when_querying_films : BaseIntegrationTest
@@ -40,8 +41,8 @@ namespace UsefulNotifications.IntegrationTests.FilmsWithGoodRatingNotifications.
 
             _locationFilmDtos = queryHandler.Execute<LocationFilmDto>(new GetFilmsQuery
             {
-                CountryId = _countryOne.Id,
-                LocationNameOrPostCode = "location name one",
+                CountryCode = _countryOne.Code,
+                LocationNameOrPostCode = _locationOneCoutryOne.NameOrPostCode,
                 RatingSource = RatingSource.Imdb,
                 MinimalRating = 8.2m
             });
@@ -195,6 +196,6 @@ namespace UsefulNotifications.IntegrationTests.FilmsWithGoodRatingNotifications.
 
             UnitOfWork.Save(_countryOne);
             UnitOfWork.Save(_countryTwo);
-        }    
+        }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
+using UsefulNotifications.Shared.FilmsWithGoodRatingNotifications;
 
 namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotifications
 {
     public class SearchFilmsArgs
     {
         public string CountryCode { get; set; }
-        public string RatingSource { get; set; }
+        public RatingSource RatingSource { get; set; }
         public string CsfdLocation { get; set; }
         public string ImdbPostCode { get; set; }
         public int? CsfdMinimalRating { get; set; }
@@ -17,7 +18,7 @@ namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotificatio
             return new Dictionary<string, string>
             {
                 { nameof(CountryCode), CountryCode },
-                { nameof(RatingSource), RatingSource },
+                { nameof(RatingSource), RatingSource.ToString() },
                 { nameof(CsfdLocation), CsfdLocation },
                 { nameof(ImdbPostCode), ImdbPostCode },
                 { nameof(CsfdMinimalRating), CsfdMinimalRating.ToString() },

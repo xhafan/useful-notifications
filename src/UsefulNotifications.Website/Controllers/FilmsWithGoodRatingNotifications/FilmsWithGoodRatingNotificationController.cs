@@ -1,18 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using CoreDdd.Queries;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using UsefulNotifications.Dtos.FilmsWithGoodRatingNotifications;
+using UsefulNotifications.Queries.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.Shared.FilmsWithGoodRatingNotifications;
 
 namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotifications
 {
     public class FilmsWithGoodRatingNotificationController : Controller
     {
+        private readonly IQueryExecutor _queryExecutor;
+
+        public FilmsWithGoodRatingNotificationController(IQueryExecutor queryExecutor)
+        {
+            _queryExecutor = queryExecutor;
+        }
+
         public IActionResult Index(SearchFilmsArgs searchFilmsArgs) // todo: test me
         {
             var viewModel = new IndexViewModel
             {
                 CountryCode = searchFilmsArgs.CountryCode ?? "CZ",
-                RatingSource = searchFilmsArgs.RatingSource ?? "CSFD",
+                RatingSource = searchFilmsArgs.RatingSource,
                 CsfdLocation = searchFilmsArgs.CsfdLocation,
                 ImdbPostCode = searchFilmsArgs.ImdbPostCode,
                 CsfdMinimalRating = searchFilmsArgs.CsfdMinimalRating ?? 80,
@@ -31,41 +41,26 @@ namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotificatio
                 }
             };
             viewModel.IsSelectedCountrySupportingCsfd = viewModel.CountryCode == "CZ" || viewModel.CountryCode == "SK";
-            viewModel.IsCsfdRatingSelected = viewModel.RatingSource == "CSFD";
+            viewModel.IsCsfdRatingSelected = viewModel.RatingSource == RatingSource.Csfd;
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult SearchForFilms(SearchFilmsArgs searchFilmsArgs) // todo: test me
+        public async Task<IActionResult> SearchForFilms(SearchFilmsArgs searchFilmsArgs)
         {
+            var locationFilmDtos = await _queryExecutor.ExecuteAsync<GetFilmsQuery, LocationFilmDto>(new GetFilmsQuery
+            {
+                CountryCode = searchFilmsArgs.CountryCode,
+                LocationNameOrPostCode = searchFilmsArgs.ImdbPostCode,
+                RatingSource = searchFilmsArgs.RatingSource,
+                MinimalRating = searchFilmsArgs.ImdbMinimalRating
+            });
+
             var viewModel = new SearchForFilmsViewModel
             {
                 SearchFilmsArgs = searchFilmsArgs,
-                Films = new[]
-                {
-                    new LocationFilmDto
-                    {
-                        FilmName = "Ženy v běhu",
-                        FilmMainUrl = "https://www.csfd.cz/film/657646-zeny-v-behu/prehled/",
-                        Ratings = new[]
-                        {
-                            new FilmRatingDto
-                            {
-                                RatingSource = RatingSource.Csfd,
-                                FilmUrl = "https://www.csfd.cz/film/657646-zeny-v-behu/prehled/",
-                                Rating = 82m,
-                            },
-                            new FilmRatingDto
-                            {
-                                RatingSource = RatingSource.Imdb,
-                                FilmUrl = "https://www.imdb.com/title/tt8938852/",
-                                Rating = 7.8m,
-                            }
-                        },
-                        Cinemas = new[] {new LocationFilmCinemaDto {CinemaName = "Zlín Golden Apple Cinema"}}
-                    }
-                }
+                Films = locationFilmDtos
             };
             return View(viewModel);
         }

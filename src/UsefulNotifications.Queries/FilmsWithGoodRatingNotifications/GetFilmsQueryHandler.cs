@@ -16,7 +16,7 @@ namespace UsefulNotifications.Queries.FilmsWithGoodRatingNotifications
         {
             FilmRatingDto filmRatingDto = null;
             return Session.QueryOver<LocationFilmDto>()
-                    .Where(x => x.CountryId == query.CountryId
+                    .Where(x => x.CountryCode == query.CountryCode
                                 && x.LocationNameOrPostCode == query.LocationNameOrPostCode
                     )
                     .JoinAlias(x => x.Ratings, () => filmRatingDto)

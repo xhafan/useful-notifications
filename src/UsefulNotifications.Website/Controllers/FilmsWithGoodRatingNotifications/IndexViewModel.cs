@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using UsefulNotifications.Shared.FilmsWithGoodRatingNotifications;
 
 namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotifications
 {
     public class IndexViewModel
     {
         public string CountryCode { get; set; }
-        public string RatingSource { get; set; }
+        public RatingSource RatingSource { get; set; }
         public string CsfdLocation { get; set; }
         public string ImdbPostCode { get; set; }
         public int? CsfdMinimalRating { get; set; }

@@ -4,9 +4,10 @@ using NUnit.Framework;
 using Shouldly;
 using UsefulNotifications.Domain.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.Dtos.FilmsWithGoodRatingNotifications;
+using UsefulNotifications.IntegrationTestsShared;
 using UsefulNotifications.TestsShared.Builders.FilmsWithGoodRatingNotifications;
 
-namespace UsefulNotifications.IntegrationTests.FilmsWithGoodRatingNotifications.Dtos
+namespace UsefulNotifications.Dtos.IntegrationTests.FilmsWithGoodRatingNotifications.Dtos
 {
     [TestFixture]
     public class when_fetching_location_film_cinema_dto : BaseIntegrationTest

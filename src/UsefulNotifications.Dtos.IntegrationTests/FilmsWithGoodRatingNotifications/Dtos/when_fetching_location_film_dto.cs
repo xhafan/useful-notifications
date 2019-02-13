@@ -4,13 +4,14 @@ using NUnit.Framework;
 using Shouldly;
 using UsefulNotifications.Domain.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.Dtos.FilmsWithGoodRatingNotifications;
+using UsefulNotifications.IntegrationTestsShared;
 using UsefulNotifications.Shared.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.TestsShared.Builders.FilmsWithGoodRatingNotifications;
 
-namespace UsefulNotifications.IntegrationTests.FilmsWithGoodRatingNotifications.Dtos
+namespace UsefulNotifications.Dtos.IntegrationTests.FilmsWithGoodRatingNotifications.Dtos
 {
     [TestFixture]
-    public class when_querying_films : BaseIntegrationTest
+    public class when_fetching_location_film_dto : BaseIntegrationTest
     {
         private LocationFilmDto _locationFilmDto;
         private Film _film;
@@ -20,7 +21,9 @@ namespace UsefulNotifications.IntegrationTests.FilmsWithGoodRatingNotifications.
         [SetUp]
         public void Context()
         {
-            _country = new CountryBuilder().Build();
+            _country = new CountryBuilder()
+                .WithCountryCode("some country code")
+                .Build();
             UnitOfWork.Save(_country);
 
             var cinema = new CinemaBuilder().Build();
@@ -46,7 +49,7 @@ namespace UsefulNotifications.IntegrationTests.FilmsWithGoodRatingNotifications.
 
             _location = new LocationBuilder()
                 .WithCountry(_country)
-                .WithNameOrPostCode("location name or post code")
+                .WithNameOrPostCode("some location name or post code")
                 .WithLocationFilms(new LocationFilmArgs
                 {
                     Film = _film,
@@ -70,8 +73,8 @@ namespace UsefulNotifications.IntegrationTests.FilmsWithGoodRatingNotifications.
         public void location_film_dto_contains_correct_data()
         {
             _locationFilmDto.ShouldNotBeNull();
-            _locationFilmDto.CountryId.ShouldBe(_country.Id);
-            _locationFilmDto.LocationNameOrPostCode.ShouldBe("location name or post code");
+            _locationFilmDto.CountryCode.ShouldBe("some country code");
+            _locationFilmDto.LocationNameOrPostCode.ShouldBe("some location name or post code");
             _locationFilmDto.FilmName.ShouldBe(_film.Name);
             _locationFilmDto.FilmMainUrl.ShouldBe(_film.MainUrl);
         }
