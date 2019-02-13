@@ -6,11 +6,13 @@ namespace UsefulNotifications.Domain.FilmsWithGoodRatingNotifications
     {
         protected LocationFilmCinema() {}
 
-        public LocationFilmCinema(LocationFilmCinemaArgs locationFilmCinemaArgs)
+        public LocationFilmCinema(LocationFilm locationFilm, LocationFilmCinemaArgs locationFilmCinemaArgs)
         {
+            LocationFilm = locationFilm;
             Cinema = locationFilmCinemaArgs.Cinema;
         }
 
+        public virtual LocationFilm LocationFilm { get; protected set; }
         public virtual Cinema Cinema { get; protected set; }
     }
 }

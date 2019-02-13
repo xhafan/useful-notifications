@@ -17,7 +17,7 @@ namespace UsefulNotifications.Domain.FilmsWithGoodRatingNotifications
             LastUpdated = DateTime.Now;
             foreach (var locationFilmArgs in locationFilmArgses)
             {
-                _films.Add(new LocationFilm(locationFilmArgs));
+                _films.Add(new LocationFilm(this, locationFilmArgs));
             }
         }
 

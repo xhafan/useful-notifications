@@ -40,7 +40,7 @@
        "Source" varchar(255) not null,
        "Rating" decimal(19,5) not null,
        "Url" text not null,
-       "FilmId" int4,
+       "FilmId" int4 not null,
        primary key ("Id")
     );
 
@@ -54,20 +54,20 @@
 
     create table "LocationFilm" (
         "Id" int4 not null,
+       "LocationId" int4 not null,
        "FilmId" int4 not null,
-       "LocationId" int4,
        primary key ("Id")
     );
 
     create table "LocationFilmCinema" (
         "Id" int4 not null,
+       "LocationFilmId" int4 not null,
        "CinemaId" int4 not null,
-       "LocationFilmId" int4,
        primary key ("Id")
     );
 
     alter table "FilmRating" 
-        add constraint FK_7B19BD1A 
+        add constraint FK_FilmRating_Film 
         foreign key ("FilmId") 
         references "Film";
 
@@ -77,24 +77,24 @@
         references "Country";
 
     alter table "LocationFilm" 
+        add constraint FK_LocationFilm_Location 
+        foreign key ("LocationId") 
+        references "Location";
+
+    alter table "LocationFilm" 
         add constraint FK_LocationFilm_Film 
         foreign key ("FilmId") 
         references "Film";
 
-    alter table "LocationFilm" 
-        add constraint FK_7D72271C 
-        foreign key ("LocationId") 
-        references "Location";
+    alter table "LocationFilmCinema" 
+        add constraint FK_LocationFilmCinema_LocationFilm 
+        foreign key ("LocationFilmId") 
+        references "LocationFilm";
 
     alter table "LocationFilmCinema" 
         add constraint FK_LocationFilmCinema_Cinema 
         foreign key ("CinemaId") 
         references "Cinema";
-
-    alter table "LocationFilmCinema" 
-        add constraint FK_65FC009 
-        foreign key ("LocationFilmId") 
-        references "LocationFilm";
 
     create table hibernate_unique_key (
          next_hi int4 

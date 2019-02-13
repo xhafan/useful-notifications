@@ -15,7 +15,7 @@ namespace UsefulNotifications.Domain.FilmsWithGoodRatingNotifications
             MainUrl = mainUrl;
             foreach (var filmRatingArgs in filmRatingArgses)
             {
-                _filmRatings.Add(new FilmRating(filmRatingArgs));
+                _filmRatings.Add(new FilmRating(this, filmRatingArgs));
             }
         }
 
