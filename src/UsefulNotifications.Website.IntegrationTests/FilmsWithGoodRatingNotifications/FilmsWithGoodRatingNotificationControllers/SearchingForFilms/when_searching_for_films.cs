@@ -11,10 +11,12 @@ using UsefulNotifications.Shared.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.TestsShared.Builders.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotifications;
 
-namespace UsefulNotifications.Website.IntegrationTests.FilmsWithGoodRatingNotifications.FilmsWithGoodRatingNotificationControllers
+namespace UsefulNotifications.Website.IntegrationTests.FilmsWithGoodRatingNotifications.FilmsWithGoodRatingNotificationControllers.SearchingForFilms
 {
-    [TestFixture]
-    public class when_searching_for_films
+    [TestFixture(TypeArgs = new[] { typeof (SearchingForFilmsWithImdbRatingSourceSpecification) })]
+    [TestFixture(TypeArgs = new[] { typeof (SearchingForFilmsWithCsfdRatingSourceSpecification) })]
+    public class when_searching_for_films<TSearchingForFilmsSpecification>
+        where TSearchingForFilmsSpecification : ISearchingForFilmsSpecification, new()
     {
         private NhibernateUnitOfWork _unitOfWork;
         private ServiceProvider _serviceProvider;
@@ -31,6 +33,8 @@ namespace UsefulNotifications.Website.IntegrationTests.FilmsWithGoodRatingNotifi
         [SetUp]
         public async Task Context()
         {
+            var specification = new TSearchingForFilmsSpecification();
+
             _serviceProvider = new ServiceProviderHelper().BuildServiceProvider();
 
             _serviceScope = _serviceProvider.CreateScope();
@@ -47,13 +51,8 @@ namespace UsefulNotifications.Website.IntegrationTests.FilmsWithGoodRatingNotifi
 
             var controller = new FilmsWithGoodRatingNotificationControllerBuilder(_serviceProvider).Build();
 
-            _searchFilmsArgs = new SearchFilmsArgs
-            {
-                CountryCode = _country.Code,
-                ImdbPostCode = _location.NameOrPostCode,
-                RatingSource = RatingSource.Imdb,
-                ImdbMinimalRating = 8.2m,
-            };
+            _searchFilmsArgs = specification.GetSearchFilmsArgs();
+
             _actionResult = await controller.SearchForFilms(_searchFilmsArgs);
         }
 
@@ -133,7 +132,7 @@ namespace UsefulNotifications.Website.IntegrationTests.FilmsWithGoodRatingNotifi
         [TearDown]
         public void TearDown()
         {
-            _unitOfWork.Commit();
+            _unitOfWork.Rollback();
             _serviceScope.Dispose();
             _serviceProvider.Dispose();
         }

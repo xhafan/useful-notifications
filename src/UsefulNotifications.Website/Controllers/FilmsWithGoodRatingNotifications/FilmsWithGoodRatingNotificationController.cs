@@ -25,7 +25,7 @@ namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotificatio
                 RatingSource = searchFilmsArgs.RatingSource,
                 CsfdLocation = searchFilmsArgs.CsfdLocation,
                 ImdbPostCode = searchFilmsArgs.ImdbPostCode,
-                CsfdMinimalRating = searchFilmsArgs.CsfdMinimalRating ?? 80,
+                CsfdMinimalRating = searchFilmsArgs.CsfdMinimalRating ?? 80m,
                 ImdbMinimalRating = searchFilmsArgs.ImdbMinimalRating ?? 8.0m,
 
                 Countries = new[]
@@ -52,9 +52,13 @@ namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotificatio
             var locationFilmDtos = await _queryExecutor.ExecuteAsync<GetFilmsQuery, LocationFilmDto>(new GetFilmsQuery
             {
                 CountryCode = searchFilmsArgs.CountryCode,
-                LocationNameOrPostCode = searchFilmsArgs.ImdbPostCode,
                 RatingSource = searchFilmsArgs.RatingSource,
-                MinimalRating = searchFilmsArgs.ImdbMinimalRating
+                LocationNameOrPostCode = searchFilmsArgs.RatingSource == RatingSource.Csfd
+                    ? searchFilmsArgs.CsfdLocation
+                    : searchFilmsArgs.ImdbPostCode,
+                MinimalRating = searchFilmsArgs.RatingSource == RatingSource.Csfd 
+                    ? searchFilmsArgs.CsfdMinimalRating
+                    : searchFilmsArgs.ImdbMinimalRating
             });
 
             var viewModel = new SearchForFilmsViewModel

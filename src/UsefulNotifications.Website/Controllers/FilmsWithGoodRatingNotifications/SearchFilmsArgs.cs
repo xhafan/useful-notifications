@@ -8,9 +8,11 @@ namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotificatio
     {
         public string CountryCode { get; set; }
         public RatingSource RatingSource { get; set; }
+
         public string CsfdLocation { get; set; }
+        public decimal? CsfdMinimalRating { get; set; }
+
         public string ImdbPostCode { get; set; }
-        public int? CsfdMinimalRating { get; set; }
         public decimal? ImdbMinimalRating { get; set; }
 
         public IDictionary<string, string> ToRouteData() // todo: test me

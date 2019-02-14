@@ -10,7 +10,7 @@ namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotificatio
         public RatingSource RatingSource { get; set; }
         public string CsfdLocation { get; set; }
         public string ImdbPostCode { get; set; }
-        public int? CsfdMinimalRating { get; set; }
+        public decimal? CsfdMinimalRating { get; set; }
         public decimal? ImdbMinimalRating { get; set; }
 
         public IEnumerable<SelectListItem> Countries { get; set; }

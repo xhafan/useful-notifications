@@ -42,8 +42,8 @@ namespace UsefulNotifications.Dtos.IntegrationTests.FilmsWithGoodRatingNotificat
             _locationFilmDtos = queryHandler.Execute<LocationFilmDto>(new GetFilmsQuery
             {
                 CountryCode = _countryOne.Code,
-                LocationNameOrPostCode = _locationOneCoutryOne.NameOrPostCode,
                 RatingSource = RatingSource.Imdb,
+                LocationNameOrPostCode = _locationOneCoutryOne.NameOrPostCode,
                 MinimalRating = 8.2m
             });
         }
