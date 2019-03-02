@@ -19,12 +19,15 @@
     <PackageReference Include="DatabaseBuilder" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Npgsql" Version="4.0.4" />
+    <PackageReference Include="Rebus.Async" Version="5.0.0" />
+    <PackageReference Include="Rebus.RabbitMq" Version="5.0.2" />
+    <PackageReference Include="Rebus.ServiceProvider" Version="5.0.0-b01" />
     <PackageReference Include="Scrutor" Version="3.0.2" />
   </ItemGroup>
 
 
   <ItemGroup>
+    <ProjectReference Include="..\UsefulNotifications.Commands\UsefulNotifications.Commands.csproj" />
     <ProjectReference Include="..\UsefulNotifications.Dtos\UsefulNotifications.Dtos.csproj" />
     <ProjectReference Include="..\UsefulNotifications.Infrastructure\UsefulNotifications.Infrastructure.csproj" />
     <ProjectReference Include="..\UsefulNotifications.Queries\UsefulNotifications.Queries.csproj" />

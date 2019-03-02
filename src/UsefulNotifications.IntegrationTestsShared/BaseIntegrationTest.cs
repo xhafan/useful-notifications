@@ -19,7 +19,7 @@ namespace UsefulNotifications.IntegrationTestsShared
         [TearDown]
         public void BaseTearDown()
         {
-            UnitOfWork.Rollback();
+            UnitOfWork.Commit();
         }
     }
 }

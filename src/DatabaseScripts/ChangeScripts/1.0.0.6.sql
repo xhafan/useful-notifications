@@ -13,6 +13,8 @@
 
     drop table if exists "LocationFilmCinema" cascade;
 
+    drop table if exists "LocationFilmDataDownloadRequest" cascade;
+
     drop table if exists hibernate_unique_key cascade;
 
     create table "Cinema" (
@@ -66,6 +68,16 @@
        primary key ("Id")
     );
 
+    create table "LocationFilmDataDownloadRequest" (
+        "Id" int4 not null,
+       "CountryCode" text not null,
+       "LocationNameOrPostCode" text not null,
+       "RatingSource" varchar(255) not null,
+       "HasBeenProcessed" boolean not null,
+       "LocationId" int4,
+       primary key ("Id")
+    );
+
     alter table "FilmRating" 
         add constraint FK_FilmRating_Film 
         foreign key ("FilmId") 
@@ -95,6 +107,11 @@
         add constraint FK_LocationFilmCinema_Cinema 
         foreign key ("CinemaId") 
         references "Cinema";
+
+    alter table "LocationFilmDataDownloadRequest" 
+        add constraint FK_LocationFilmDataDownloadRequest_Location 
+        foreign key ("LocationId") 
+        references "Location";
 
     create table hibernate_unique_key (
          next_hi int4 

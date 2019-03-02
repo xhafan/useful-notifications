@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotifications;
 
-namespace UsefulNotifications.Website.IntegrationTests.FilmsWithGoodRatingNotifications.FilmsWithGoodRatingNotificationControllers
+namespace UsefulNotifications.Website.IntegrationTests.FilmsWithGoodRatingNotifications.Controllers
 {
     public class FilmsWithGoodRatingNotificationControllerBuilder
     {
@@ -16,7 +16,7 @@ namespace UsefulNotifications.Website.IntegrationTests.FilmsWithGoodRatingNotifi
         public FilmsWithGoodRatingNotificationController Build()
         {
             var queryExecutor = new QueryExecutor(_serviceProvider.GetService<IQueryHandlerFactory>());
-            return new FilmsWithGoodRatingNotificationController(queryExecutor);
+            return new FilmsWithGoodRatingNotificationController(queryExecutor, null); // todo: pass IBusRequestSender
         }
     }
 }

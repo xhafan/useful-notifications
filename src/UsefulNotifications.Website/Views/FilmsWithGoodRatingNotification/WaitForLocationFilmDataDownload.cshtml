@@ -1,0 +1,12 @@
+﻿@model UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotifications.SearchForFilmsArgs
+
+@{
+    ViewData["Title"] = "Čekejte na stažení filmových dat";
+}
+
+<div class="text-center">
+    <h2>Čekejte na stažení filmových dat</h2>
+    <p>
+        <a asp-action="SearchForFilms" asp-all-route-data="@Model.ToRouteData()">Přejít na nalezené filmy</a><br />
+    </p>
+</div>

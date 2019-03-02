@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.IO;
 using System.Reflection;
 using CoreDdd.AspNetCore.Middlewares;
+using CoreDdd.Domain.Events;
 using CoreDdd.Nhibernate.Configurations;
 using CoreDdd.Nhibernate.Register.DependencyInjection;
 using CoreDdd.Queries;
@@ -16,8 +16,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
+using Rebus.Config;
+using Rebus.Routing.TypeBased;
+using Rebus.ServiceProvider;
+using UsefulNotifications.Commands.FilmsWithGoodRatingNotifications;
+using UsefulNotifications.Domain.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.Infrastructure;
 using UsefulNotifications.Queries.FilmsWithGoodRatingNotifications;
+using UsefulNotifications.Website.BusRequestSenders;
 
 namespace UsefulNotifications.Website
 {
@@ -46,13 +52,31 @@ namespace UsefulNotifications.Website
             services.AddCoreDdd();
             services.AddCoreDddNhibernate<NhibernateConfigurator>();
 
-            // register command handlers, query handlers and domain event handlers
+            // register query handlers and domain event handlers
             services.Scan(scan => scan
+                
                 .FromAssemblyOf<GetFilmsQuery>()
                 .AddClasses(classes => classes.AssignableTo(typeof(IQueryHandler<>)))
                 .AsImplementedInterfaces()
-                .WithTransientLifetime()                
+                .WithTransientLifetime()
+
+                .FromAssemblyOf<FilmDataDownloadRequestedDomainEventHandler>()
+                .AddClasses(classes => classes.AssignableTo(typeof(IDomainEventHandler<>)))
+                .AsImplementedInterfaces()
+                .WithTransientLifetime()
             );
+
+            var rebusInputQueueName = "UsefulNotifications.Website"; // todo: move it to config file
+            var rebusRabbitMqConnectionString = "amqp://admin:password01@localhost";
+
+            services.AddRebus(configure => configure
+                .Logging(l => l.Trace())
+                .Transport(t => t.UseRabbitMq(rebusRabbitMqConnectionString, rebusInputQueueName))
+                .Options(o => o.EnableSynchronousRequestReply())
+                .Routing(x => x.TypeBased().MapAssemblyOf<DownloadLocationFilmDataCommand>("UsefulNotifications.ServiceApp"))
+            );
+
+            services.AddSingleton<IBusRequestSender, BusRequestSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,8 +91,10 @@ namespace UsefulNotifications.Website
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStaticFiles();
+            app.UseStaticFiles();          
             app.UseCookiePolicy();
+
+            app.ApplicationServices.UseRebus();
 
             app.UseMiddleware<UnitOfWorkDependencyInjectionMiddleware>(IsolationLevel.ReadCommitted);
 

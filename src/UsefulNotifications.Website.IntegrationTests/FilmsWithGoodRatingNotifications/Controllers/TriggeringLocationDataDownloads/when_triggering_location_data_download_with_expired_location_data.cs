@@ -11,12 +11,12 @@ using UsefulNotifications.Shared.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.TestsShared.Builders.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotifications;
 
-namespace UsefulNotifications.Website.IntegrationTests.FilmsWithGoodRatingNotifications.FilmsWithGoodRatingNotificationControllers.SearchingForFilms
+namespace UsefulNotifications.Website.IntegrationTests.FilmsWithGoodRatingNotifications.Controllers.TriggeringLocationDataDownloads
 {
-    [TestFixture(TypeArgs = new[] { typeof (SearchingForFilmsWithImdbRatingSourceSpecification) })]
-    [TestFixture(TypeArgs = new[] { typeof (SearchingForFilmsWithCsfdRatingSourceSpecification) })]
-    public class when_searching_for_films<TSearchingForFilmsSpecification>
-        where TSearchingForFilmsSpecification : ISearchingForFilmsSpecification, new()
+    [TestFixture(TypeArgs = new[] { typeof (TriggeringLocationDataDownloadWithImdbRatingSourceSpecification) })]
+    [TestFixture(TypeArgs = new[] { typeof (TriggeringLocationDataDownloadWithCsfdRatingSourceSpecification) })]
+    public class when_triggering_location_data_download_with_expired_location_data<TTriggeringLocationDataDownloadSpecification>
+        where TTriggeringLocationDataDownloadSpecification : ITriggeringLocationDataDownloadSpecification, new()
     {
         private NhibernateUnitOfWork _unitOfWork;
         private ServiceProvider _serviceProvider;
@@ -28,12 +28,12 @@ namespace UsefulNotifications.Website.IntegrationTests.FilmsWithGoodRatingNotifi
         private Cinema _cinema;
         private Film _film;
         private Location _location;
-        private SearchFilmsArgs _searchFilmsArgs;
+        private SearchForFilmsArgs _searchForFilmsArgs;
 
         [SetUp]
         public async Task Context()
         {
-            var specification = new TSearchingForFilmsSpecification();
+            var specification = new TTriggeringLocationDataDownloadSpecification();
 
             _serviceProvider = new ServiceProviderHelper().BuildServiceProvider();
 
@@ -51,9 +51,9 @@ namespace UsefulNotifications.Website.IntegrationTests.FilmsWithGoodRatingNotifi
 
             var controller = new FilmsWithGoodRatingNotificationControllerBuilder(_serviceProvider).Build();
 
-            _searchFilmsArgs = specification.GetSearchFilmsArgs();
+            _searchForFilmsArgs = specification.GetSearchForFilmsArgs();
 
-            _actionResult = await controller.SearchForFilms(_searchFilmsArgs);
+            _actionResult = await controller.TriggerLocationFilmDataDownload(_searchForFilmsArgs);
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace UsefulNotifications.Website.IntegrationTests.FilmsWithGoodRatingNotifi
             viewResult.Model.ShouldBeOfType<SearchForFilmsViewModel>();
             var viewModel = (SearchForFilmsViewModel)viewResult.Model;
 
-            viewModel.SearchFilmsArgs.ShouldBe(_searchFilmsArgs);
+            viewModel.SearchForFilmsArgs.ShouldBe(_searchForFilmsArgs);
             viewModel.Films.Count().ShouldBe(1);
             var locationFilmDto = viewModel.Films.Single();
             locationFilmDto.Id.ShouldBe(_location.Films.Single().Id);

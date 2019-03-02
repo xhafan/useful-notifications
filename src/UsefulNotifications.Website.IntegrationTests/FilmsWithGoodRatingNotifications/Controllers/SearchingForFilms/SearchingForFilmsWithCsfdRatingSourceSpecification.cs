@@ -1,13 +1,13 @@
 ﻿using UsefulNotifications.Shared.FilmsWithGoodRatingNotifications;
 using UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotifications;
 
-namespace UsefulNotifications.Website.IntegrationTests.FilmsWithGoodRatingNotifications.FilmsWithGoodRatingNotificationControllers.SearchingForFilms
+namespace UsefulNotifications.Website.IntegrationTests.FilmsWithGoodRatingNotifications.Controllers.SearchingForFilms
 {
     public class SearchingForFilmsWithCsfdRatingSourceSpecification : ISearchingForFilmsSpecification
     {
-        public SearchFilmsArgs GetSearchFilmsArgs()
+        public SearchForFilmsArgs GetSearchForFilmsArgs()
         {
-            return new SearchFilmsArgs
+            return new SearchForFilmsArgs
             {
                 CountryCode = "ONE",
                 RatingSource = RatingSource.Csfd,

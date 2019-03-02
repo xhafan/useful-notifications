@@ -4,7 +4,7 @@ using UsefulNotifications.Shared.FilmsWithGoodRatingNotifications;
 
 namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotifications
 {
-    public class SearchFilmsArgs
+    public class SearchForFilmsArgs
     {
         public string CountryCode { get; set; }
         public RatingSource RatingSource { get; set; }

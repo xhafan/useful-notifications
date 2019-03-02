@@ -5,7 +5,7 @@ namespace UsefulNotifications.Website.Controllers.FilmsWithGoodRatingNotificatio
 {
     public class SearchForFilmsViewModel
     {
-        public SearchFilmsArgs SearchFilmsArgs { get; set; }
+        public SearchForFilmsArgs SearchForFilmsArgs { get; set; }
         public IEnumerable<LocationFilmDto> Films { get; set; }
     }
 }
