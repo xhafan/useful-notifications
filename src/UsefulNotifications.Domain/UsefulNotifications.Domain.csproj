@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="CoreDdd" Version="3.2.0" />
-    <PackageReference Include="CoreDdd.Nhibernate" Version="3.2.0" />
+    <PackageReference Include="CoreDdd.Nhibernate" Version="3.2.2" />
     <PackageReference Include="NHibernateProfiler.Appender" Version="5.0.5032" />
     <PackageReference Include="Rebus" Version="5.2.1" />
   </ItemGroup>

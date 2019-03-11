@@ -7,7 +7,7 @@ namespace UsefulNotifications.IntegrationTestsShared
     public abstract class BaseIntegrationTest
     {
         protected NhibernateUnitOfWork UnitOfWork;
-        private static readonly NhibernateConfigurator NhibernateConfigurator = new NhibernateConfigurator();
+        private static readonly NhibernateConfigurator NhibernateConfigurator = new NhibernateConfigurator(); // todo: dispose NhibernateConfigurator instance
 
         [SetUp]
         public void BaseSetUp()
