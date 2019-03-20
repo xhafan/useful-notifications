@@ -82,8 +82,6 @@ namespace UsefulNotifications.ServiceApp
                     });
                 using (var bus = rebusConfigurer.Start())
                 {
-                    bus.Subscribe<FilmDataDownloadRequestedDomainEvent>().Wait();
-
                     Console.WriteLine("Press enter to quit");
                     Console.ReadLine();
                 }

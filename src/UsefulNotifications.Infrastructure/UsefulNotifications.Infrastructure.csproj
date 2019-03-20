@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CoreDdd.Nhibernate" Version="3.2.2" />
+    <PackageReference Include="CoreDdd.Nhibernate" Version="3.2.3" />
     <PackageReference Include="NHibernate" Version="5.2.3" />
     <PackageReference Include="NHibernateProfiler.Appender" Version="5.0.5032" />
     <PackageReference Include="Npgsql" Version="4.0.4" />
